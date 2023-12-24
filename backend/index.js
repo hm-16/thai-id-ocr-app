@@ -1,41 +1,24 @@
 const express = require('express');
-const multer = require('multer');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const performOCR = require('./helpers/ocr');
+const ocrRoutes = require('./routes/ocrRoutes');
 
 require('dotenv').config();
-
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const port = process.env.PORT || 3001;
-const upload = multer();
+const mongoose = require('mongoose');
+mongoose.connect(process.env.MONGO_URI);
 
-//route for image upload and ocr
-app.post('/api/ocr',upload.single('image'), async(req,res)=>{
-
-    //file is not uploaded
-    if(!req.file){
-        return res.status(400).json({success: false , error:'No image uploaded'});
-    }
-
-    //otherwise we will perform ocr on image
-    const response = await performOCR(req.file);
-
-    if(response.status==="1"){
-        res.json(response.data);
-    }else{
-        res.status(500).json({success: false, error: 'OCR processing failed'});
-    }
-    
-    
+mongoose.connection.on('connected', () => {
+  console.log('Connected to MongoDB');
 });
-
-
+// Use routes
+app.use('/', ocrRoutes);
 // Start the server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
-  });
+});

@@ -18,9 +18,27 @@ const OcrComponent = () => {
       console.log(response.data);
       setOcrResult(response.data);
     } catch (error) {
+      if(error.response.status===422 || error.response.status===500){
+        alert('Invalid or Unclear Image');
+      }
       console.error('OCR request failed:', error);
     }
   };
+
+  const handelSave = async() => {
+    try {
+      
+      const response = await axios.post('http://localhost:3001/api/ocr/save', {data : ocrResult});
+      if(response.data.message===11000){
+        alert('Id Card Already exists');
+      }else if(response.data.message===121){
+        alert('Some Fields Are Missing');
+      }
+      console.log(response);
+    } catch (error) {
+      console.error('Save request failed:', error);
+    }
+  }
 
   return (
     <div>
@@ -30,6 +48,7 @@ const OcrComponent = () => {
         <div>
           <h3>OCR Result:</h3>
           <pre>{JSON.stringify(ocrResult, null, 2)}</pre>
+          <button onClick={handelSave}>Save</button>
         </div>
       )}
     </div>
