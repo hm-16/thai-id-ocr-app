@@ -1,9 +1,13 @@
 import React from 'react';
+import Ocr from './components/Ocr';
 
 function App() {
   return (
     <div className="App">
-        <h1>Thai ID OCR App</h1>
+      <header className="App-header">
+        <h1>MERN OCR App</h1>
+        <Ocr />
+      </header>
     </div>
   );
 }
