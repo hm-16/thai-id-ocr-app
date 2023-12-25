@@ -48,7 +48,7 @@ const UpdateRecord = () => {
     };
     try {
         const response = await axios.get('http://localhost:3001/api/ocr/update',{params : filter});
-        console.log(response);
+        alert('Updated the record');
         
       } catch (error) {
         console.error('Error Updating record:', error);

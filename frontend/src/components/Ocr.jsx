@@ -34,9 +34,10 @@ const OcrComponent = () => {
       }else if(response.data.message===121){
         alert('Some Fields Are Missing');
       }
-      console.log(response);
+      alert('Id Card Saved');
     } catch (error) {
       console.error('Save request failed:', error);
+      alert('Saving Id Card Failed');
     }
   }
 

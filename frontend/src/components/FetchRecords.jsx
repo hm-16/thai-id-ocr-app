@@ -32,9 +32,13 @@ const FetchRecords = () => {
       const response = await axios.get('http://localhost:3001/api/ocr', {
         params: filters,
       });
+      if(response.data.data.length ===0 ){
+        alert('No Records present');
+      }
       setOcrData(response.data.data);
     } catch (error) {
       console.error('Error fetching data:', error);
+      alert('Error fetching ata');
     }
   };
 
