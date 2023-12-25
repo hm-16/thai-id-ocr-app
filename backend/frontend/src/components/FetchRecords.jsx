@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import isValidDateFormat from '../helpers/validateDate';
 
 const FetchRecords = () => {
   const [filters, setFilters] = useState({
@@ -33,9 +34,12 @@ const FetchRecords = () => {
         params: filters,
       });
       if(response.data.data.length ===0 ){
+        setOcrData([]);
         alert('No Records present');
+      }else{
+        setOcrData(response.data.data);
       }
-      setOcrData(response.data.data);
+      
     } catch (error) {
       console.error('Error fetching data:', error);
       alert('Error fetching ata');
@@ -47,22 +51,36 @@ const FetchRecords = () => {
     event.preventDefault();
     const formData = new FormData(event.target);
 
-    fetchData({
-      idNumber: formData.get('idNumber'),
-      name : formData.get('name'),
-      lastName : formData.get('lastName'),
-      dob : formData.get('dob'),
-      doi : formData.get('doi'),
-      doe : formData.get('doe'),
-      dobOperator : formData.get('dobOperator'),
-      doiOperator : formData.get('doiOperator'),
-      doeOperator : formData.get('doeOperator')
-    })
-    setApplyFiltersClicked(true);
+    //if filters are on dates then we must validate them
+    const dob = formData.get('dob');
+    const doi = formData.get('doi');
+    const doe = formData.get('doe');
+
+    if(dob && (!isValidDateFormat(dob) || !formData.get('dobOperator'))){
+      alert('Invlaid DOB or operator not selected');
+    }else if(doi && (!isValidDateFormat(doi) || !formData.get('doiOperator'))){
+      alert('Invalid DOI or operator not selected');
+    }else if(doe && (!isValidDateFormat(doe) || !formData.get('doeOperator'))){
+      alert('Invalid DOE or operator not selected');
+    }else{
+      fetchData({
+        idNumber: formData.get('idNumber'),
+        name : formData.get('name'),
+        lastName : formData.get('lastName'),
+        dob : dob,
+        doi : doi,
+        doe : doe,
+        dobOperator : formData.get('dobOperator'),
+        doiOperator : formData.get('doiOperator'),
+        doeOperator : formData.get('doeOperator')
+      })
+      setApplyFiltersClicked(true);
+    }
   };
 
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
+    
     setFilters((prevFilters) => ({ ...prevFilters, [name]: value }));
   };
 

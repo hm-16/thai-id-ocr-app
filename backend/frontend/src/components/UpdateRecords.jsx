@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
+import isValidDateFormat from '../helpers/validateDate';
 const UpdateRecord = () => {
   const [idNumber, setIdNumber] = useState('');
   const [record, setRecord] = useState(null);
@@ -46,14 +46,27 @@ const UpdateRecord = () => {
         dateOfIssue : currDetails.get('dateOfIssue'),
         dateOfExpiry : currDetails.get('dateOfExpiry')
     };
-    try {
+    const dob = isValidDateFormat(filter.dateOfBirth);
+    const doi = isValidDateFormat(filter.dateOfIssue);
+    const doe = isValidDateFormat(filter.dateOfExpiry);
+    if(!filter.name || !filter.lastName || !filter.dateOfBirth || !filter.dateOfIssue || !filter.dateOfExpiry){
+      alert('No field must be empty');
+    }else if(!dob || !doi || !doe){
+      alert('Invalid Date format . Must be in DD/MM/YYYY');
+    }else if(doi <= dob){
+        alert('Date of Issue cannot be before or equal Date of Birth');
+    }else if(doi >= doe){
+        alert('Date of Expiry cannot be before or equal to Date of Issue');
+    }else{
+      try {
         const response = await axios.get('/api/ocr/update',{params : filter});
+        console.log(response);
         alert('Updated the record');
-        
       } catch (error) {
         console.error('Error Updating record:', error);
         alert('Error Updating record');
-      }    
+      }
+    } 
   }
 
   return (
