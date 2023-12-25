@@ -6,6 +6,7 @@ It is an OCR (Optical Character Recognition) App that can recognize Thai id card
  - **Fetch operation** : Present on '/fetch' route , where user can fetch the records using some filters such as Id number , Name , Last Name , DOB (= or >= or <= or > or <) similarly for Date of Issue and Expiry .
  - **Update Operation** : On the route : '/update' there is functionality to first get the data using ID card number and then update the details of that ID card into the database .
  - **Delete Operation** : On '/delete' route user can delete the particular record , if it exists in database , using the ID card number .
+ - **Regex Logic** : Now from the text that is extracted by the google vision API , I wanted my relevant information to be extracted , for that I created a logic in using Regex to scrap the relevant information from extracted text .
 
 ## To run app on local system
 ### Prerequisites
