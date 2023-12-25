@@ -1,6 +1,7 @@
 import React from 'react';
 import Ocr from './components/Ocr';
-import OcrDataComponent from './components/OcrDataComponent';
+import FetchRecords from './components/FetchRecords';
+import UpdateRecords from './components/UpdateRecords';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -8,7 +9,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Ocr/>} />
-        <Route path="/ocrData" element={<OcrDataComponent />} />
+        <Route path="/fetch" element={<FetchRecords />} />
+        <Route path="/update" element={<UpdateRecords />} />
       </Routes>
     </Router>
   );

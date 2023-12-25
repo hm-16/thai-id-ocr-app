@@ -59,7 +59,7 @@ const OcrComponent = () => {
         </div>
       )}
       <br/>
-      <Link to="/ocrData">Go to OCR Data </Link>
+      <Link to="/fetch">Go to Fetch Records </Link>
     </div>
   );
 };

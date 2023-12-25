@@ -80,4 +80,47 @@ router.get('/api/ocr', async (req, res) => {
     return dateFilter;
   };
 
+  //Route to update details
+  router.get('/api/ocr/update',async (req,res) => {
+    try {
+      const details = req.query;
+      
+      // Use findOneAndUpdate to find and update the record
+    const updateResult = await IdCard.updateOne(
+      { identificationNumber: details.identificationNumber },
+      { $set: details },
+      {new : true}
+    );
+     // Check if any document matched the filter
+     if (updateResult.modifiedCount === 0) {
+      return res.status(404).json({ success: false, message: 'Record not found' });
+    }
+
+    res.json({ success: true, message: 'Record updated successfully' });
+  } catch (error) {
+    console.error('Error updating record:', error);
+    res.status(500).json({ success: false, message: 'Failed to update record' });
+  }
+  });
+
+
+//Route to delete record
+router.delete('/api/ocr/delete', async (req, res) => {
+  try {
+    const idNumber = req.query;
+
+    // Use findOneAndDelete to find and delete the record in a single operation
+    const deletedRecord = await IdCard.findOneAndDelete({ identificationNumber: idNumber });
+
+    if (!deletedRecord) {
+      return res.status(404).json({ success: false, message: 'Record not found' });
+    }
+
+    return res.json({ success: true, message: 'Record deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting record:', error);
+    return res.status(500).json({ success: false, message: 'Failed to delete record' });
+  }
+});
+
 module.exports = router;
