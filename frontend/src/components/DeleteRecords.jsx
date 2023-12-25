@@ -15,7 +15,7 @@ const handleDeleteRecord = async (event) => {
     const data = new FormData(event.target);
     const idNumber = {identificationNumber : data.get('idNumber')};
     try {
-        const response = await axios.delete('http://localhost:3001/api/ocr/delete',{params : idNumber});
+        const response = await axios.delete('/api/ocr/delete',{params : idNumber});
         alert('Deleted the record');
     } catch (error) {
         console.error('Error Deleting record:', error);

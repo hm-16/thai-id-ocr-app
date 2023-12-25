@@ -16,7 +16,7 @@ const UpdateRecord = () => {
     const reqData = new FormData(event.target);
     
     try {
-      const response = await axios.get('http://localhost:3001/api/ocr',{params : {idNumber : reqData.get('idNumber')}});
+      const response = await axios.get('/api/ocr',{params : {idNumber : reqData.get('idNumber')}});
       console.log(response);
       if (response.data.data.length === 1) {
         console.log(response.data.data[0]);
@@ -47,7 +47,7 @@ const UpdateRecord = () => {
         dateOfExpiry : currDetails.get('dateOfExpiry')
     };
     try {
-        const response = await axios.get('http://localhost:3001/api/ocr/update',{params : filter});
+        const response = await axios.get('/api/ocr/update',{params : filter});
         alert('Updated the record');
         
       } catch (error) {

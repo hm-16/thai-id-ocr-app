@@ -27,7 +27,7 @@ const OcrComponent = () => {
     formData.append('image', selectedFile);
 
     try {
-      const response = await axios.post('http://localhost:3001/api/ocr', formData);
+      const response = await axios.post('/api/ocr', formData);
       console.log(response.data);
       setOcrResult(response.data);
     } catch (error) {
@@ -41,7 +41,7 @@ const OcrComponent = () => {
   const handelSave = async() => {
     try {
       
-      const response = await axios.post('http://localhost:3001/api/ocr/save', {data : ocrResult});
+      const response = await axios.post('/api/ocr/save', {data : ocrResult});
       if(response.data.message===11000){
         alert('Id Card Already exists');
       }else if(response.data.message===121){

@@ -29,7 +29,7 @@ const FetchRecords = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/api/ocr', {
+      const response = await axios.get('/api/ocr', {
         params: filters,
       });
       if(response.data.data.length ===0 ){
