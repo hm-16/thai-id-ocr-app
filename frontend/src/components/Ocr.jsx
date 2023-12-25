@@ -6,7 +6,20 @@ const OcrComponent = () => {
   const [ocrResult, setOcrResult] = useState('');
 
   const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
+    const file = event.target.files[0];
+    if (file) {
+      const fileSize = file.size / 1024 / 1024; // Size in MB
+      const maxSize = 2; // Maximum size in MB
+
+      if (fileSize > maxSize) {
+        alert('Please choose an image file smaller than 2 MB.');
+        event.target.value = ''; 
+      } else {
+        
+        setSelectedFile(event.target.files[0]);
+      }
+    }
+    
   };
 
   const handleUpload = async () => {
@@ -48,7 +61,7 @@ const OcrComponent = () => {
       <button onClick={handleUpload}>Upload and OCR</button>
       {ocrResult && (
         <div>
-          <h3>OCR Result:</h3>
+          <h2>OCR Result:</h2>
           <pre>{JSON.stringify({
               "identification_number" : ocrResult.identificationNumber,
               "name" : ocrResult.name,
