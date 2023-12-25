@@ -4,7 +4,7 @@ const extractInformation = require('./convertText');
 
 // Google Cloud Vision API client
 const vision = new ImageAnnotatorClient({
-    keyFilename: 'credentials\\thai-id-card-ocr-a0713ee030c0.json',
+    keyFilename: 'thai-id-card-ocr-a0713ee030c0.json',
 });
 
 async function performOCR(file){
