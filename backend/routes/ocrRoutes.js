@@ -107,10 +107,10 @@ router.get('/api/ocr', async (req, res) => {
 //Route to delete record
 router.delete('/api/ocr/delete', async (req, res) => {
   try {
-    const idNumber = req.query;
-
+    const {identificationNumber} = req.query;
+    console.log(identificationNumber);
     // Use findOneAndDelete to find and delete the record in a single operation
-    const deletedRecord = await IdCard.findOneAndDelete({ identificationNumber: idNumber });
+    const deletedRecord = await IdCard.findOneAndDelete({ identificationNumber: identificationNumber });
 
     if (!deletedRecord) {
       return res.status(404).json({ success: false, message: 'Record not found' });

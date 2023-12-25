@@ -139,7 +139,9 @@ const FetchRecords = () => {
         ))}
       </ul>
 
-      <Link to="/">Go to OCR </Link>
+      <Link to="/">Go to OCR </Link>&nbsp;&nbsp;&nbsp;
+      <Link to="/update">Go to Update Records</Link>&nbsp;&nbsp;&nbsp;
+      <Link to="/delete">Go to Delete Records</Link>
     </div>
   );
 };

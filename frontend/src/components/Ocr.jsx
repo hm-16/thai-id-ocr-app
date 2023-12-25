@@ -42,6 +42,7 @@ const OcrComponent = () => {
 
   return (
     <div>
+    <h2>Upload ID Card</h2>
       <input type="file" accept="image/*" onChange={handleFileChange} />
       <button onClick={handleUpload}>Upload and OCR</button>
       {ocrResult && (
@@ -59,7 +60,9 @@ const OcrComponent = () => {
         </div>
       )}
       <br/>
-      <Link to="/fetch">Go to Fetch Records </Link>
+      <Link to="/update">Go to Update Records</Link>&nbsp;&nbsp;&nbsp;
+      <Link to="/fetch">Go to Fetch Records</Link>&nbsp;&nbsp;&nbsp;
+      <Link to="/delete">Go to Delete Records</Link>
     </div>
   );
 };
