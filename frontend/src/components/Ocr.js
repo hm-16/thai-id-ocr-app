@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import {Link} from 'react-router-dom';
 const OcrComponent = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [ocrResult, setOcrResult] = useState('');
@@ -47,10 +47,19 @@ const OcrComponent = () => {
       {ocrResult && (
         <div>
           <h3>OCR Result:</h3>
-          <pre>{JSON.stringify(ocrResult, null, 2)}</pre>
+          <pre>{JSON.stringify({
+              "identification_number" : ocrResult.identificationNumber,
+              "name" : ocrResult.name,
+              "last_name" : ocrResult.lastName,
+              "date-of-birth" : ocrResult.dateOfBirth,
+              "date-of-issue" : ocrResult.dateOfIssue,
+              "date-of-expiry" : ocrResult.dateOfExpiry
+            },null,2)}</pre>
           <button onClick={handelSave}>Save</button>
         </div>
       )}
+      <br/>
+      <Link to="/ocrData">Go to OCR Data </Link>
     </div>
   );
 };

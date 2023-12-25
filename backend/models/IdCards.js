@@ -44,4 +44,4 @@ const idCardSchema = new mongoose.Schema({
 
 const IdCard = mongoose.model('idcard', idCardSchema);
   
-module.exports = IdCard
+module.exports = IdCard;

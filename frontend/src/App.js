@@ -1,14 +1,16 @@
 import React from 'react';
 import Ocr from './components/Ocr';
+import OcrDataComponent from './components/OcrDataComponent';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>MERN OCR App</h1>
-        <Ocr />
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Ocr/>} />
+        <Route path="/ocrData" element={<OcrDataComponent />} />
+      </Routes>
+    </Router>
   );
 }
 
